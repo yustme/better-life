@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <style>
+        .green {
+            background-color: green;
+        }
+        .red {
+            background-color: red;
+        }
+    </style>
+    <h1>Přesun z {{ moveFromCity }} do {{ moveToCity }}</h1>
+    <h2>Ceny bydlení</h2>
+    <table class="table-bordered">
+        <thead>
+            <td></td>
+            <td>{{ moveFromCity }}</td>
+            <td>{{ moveToCity }}</td>
+        </thead>
+        <tr>
+            <td>
+                Cena za pronájem m2
+            </td>
+            <td>
+                {{ moveFromEstate.rows[0][3].value }}
+            </td>
+            <td>
+                {{ moveToEstate.rows[0][3].value }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Cena za koupi m2
+            </td>
+            <td>
+                {{ moveFromEstate.rows[0][4].value }}
+            </td>
+            <td>
+                {{ moveToEstate.rows[0][4].value }}
+            </td>
+        </tr>
+    </table>
+    <h2>Indexy kvality života</h2>
+    <table class="table-bordered">
+        <thead>
+            <td>Index</td>
+            <td>{{ moveFromCity }}</td>
+            <td>{{ moveToCity }}</td>
+        </thead>
+        {% for index, value in moveFromData %}
+            <tr>
+                <td>{{ index }}</td>
+                <td>{{ value }}</td>
+                <td class="{% if value > moveToData[index] %} green {% else %} red {% endif %}">{{ moveToData[index] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

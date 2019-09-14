@@ -1,0 +1,10 @@
+version: '3.0'
+
+services:
+  app:
+    build: .
+    volumes:
+      - ./:/code
+    command: symfony server:start
+    ports:
+      - "8000:8000"
